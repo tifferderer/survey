@@ -31,18 +31,31 @@ $f3->route('GET|POST /survey', function ($f3) {
 
         // get the data  from the Post array
         $name = trim($_POST['name']);
-        $options = ($_POST['options']);
+        $userOptions = ($_POST['options']);
 
         //if data is valid, store in session
-        if(validName($name)) {
+        if (validName($name)) {
             $_SESSION['name'] = $name;
-        }
-        //data is not valid, set error in f3 hive
+        } //data is not valid, set error in f3 hive
         else {
-            $f3->set('errors["name"]',"Name cannot be blank.");
+            $f3->set('errors["name"]', "Name cannot be blank.");
         }
 
+        if(validOpt($userOptions)) {
+            $_SESSION['option'] = implode(" ", $userOptions);
+        }
+
+        else {
+            $f3->set('errors["option"]', "Valid options only.");
+        }
+
+
+        if (empty($f3->get('errors'))) {
+            //send to the summary page
+            $f3->reroute('/summary');
+        }
     }
+
     $f3->set('options', getOptions());
     $f3->set('name', isset($name) ? $name : "");
 
@@ -51,17 +64,13 @@ $f3->route('GET|POST /survey', function ($f3) {
 });
 
 //define a summary
-$f3->route('POST /summary', function () {
+$f3->route('GET /summary', function () {
     //echo "Test";
-    if(isset($_POST['name'])) {
-        $_SESSION['name'] = $_POST['name'];
-    }
-    if(isset($_POST['option'])) {
-        $_SESSION['option'] = implode(" ", $_POST['option']);
-    }
 
     $view = new Template();
     echo $view->render('views/summary.html');
+
+    session_destroy();
 });
 
 //run fat free
