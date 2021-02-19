@@ -20,18 +20,18 @@ $f3->route('GET /', function() {
     echo $view->render('views/home.html');
 });
 
-//define a breakfast route
-$f3->route('GET /breakfast', function () {
-    //echo "breakfast";
+//define a survey route
+$f3->route('GET /survey', function () {
+
     $view = new Template();
-    echo $view->render('views/breakfast.html');
+    echo $view->render('views/survey.html');
 });
 
-//define a lunch/sandwich route
-$f3->route('GET /lunch/sandwich', function () {
+//define a summary
+$f3->route('GET /summary', function () {
     //echo "Test";
     $view = new Template();
-    echo $view->render('views/sandwich.html');
+    echo $view->render('views/summary.html');
 });
 
 //run fat free
