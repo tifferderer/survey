@@ -1,8 +1,9 @@
 <include href="views/header.html"></include>
 
-<h1>Thank you for taking the survey, </h1>
+<h1>Thank you for taking the survey, {{ @SESSION.name}} </h1>
 
 <h3>Your answers:</h3>
+<p>{{ @SESSION.option }}</p>
 
 </body>
 </html>
