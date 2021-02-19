@@ -1,1 +1,40 @@
 <include href="views/header.html"></include>
+<form action="order2" method="post">
+
+    <!-- get name -->
+    <div class="form-group">
+        <div>
+            <label for="name" class="col-sm-2 control-label">Name</label>
+            <input class="form-control" type="text" name="name" id="name" >
+            <br>
+        </div>
+    </div>
+
+    <!-- get array-->
+    <div class="form-group">
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Check all that apply</label>
+            <div class="col-sm-4">
+                <repeat group="{{ @options }}" value="{{ @option }}">
+                    <label><input type="radio"
+                                  name="option"
+                                  id="{{ @option }}"
+                                  value="{{ @option }}"
+                        > {{ ucfirst(@option) }}
+                        </input></label><br>
+                </repeat>
+                <check if="{{ isset(@errors['option']) }}"> {{ @errors['option'] }}</check>
+            </div>
+        </div>
+
+    </div>
+
+    <div>
+        <br>
+        <input class="form-control btn btn-default"
+               type="submit" value="Submit">
+    </div>
+</form>
+
+</body>
+</html>

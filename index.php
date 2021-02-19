@@ -8,6 +8,7 @@ error_reporting(E_ALL);
 
 //require the autoload file
 require_once('vendor/autoload.php');
+require_once ('model/data-layer.php');
 
 //Create an instance of Base class
 $f3 = Base::instance();
@@ -21,7 +22,8 @@ $f3->route('GET /', function() {
 });
 
 //define a survey route
-$f3->route('GET /survey', function () {
+$f3->route('GET|POST /survey', function ($f3) {
+    $f3->set('options', getOptions());
 
     $view = new Template();
     echo $view->render('views/survey.html');
